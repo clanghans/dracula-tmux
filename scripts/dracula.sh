@@ -244,7 +244,12 @@ main()
   done
 
   if $trigger_continuum; then
-    tmux set-option -ga status-right "#(~/.tmux/plugins/tmux-continuum/scripts/continuum_save.sh)"
+    if [ -d "${XDG_CONFIG_HOME}/tmux/plugins" ]; then
+      plugins_dir="${XDG_CONFIG_HOME}/tmux/plugins"
+    else
+      plugins_dir="~/.tmux/plugins"
+    fi
+  tmux set-option -ga status-right "#(${plugins_dir}/tmux-continuum/scripts/continuum_save.sh)"
   fi
 
   # Window option
