@@ -44,12 +44,11 @@ programs.tmux = {
 
 #### Configuration
 
-To enable plugins set up the `@dracula-plugins` option in you `.tmux.conf` file, separate plugin by space.
+To enable plugins set up the `@dracula-plugins` option in your `.tmux.conf` file, separate plugin by space.
 The order that you define the plugins will be the order on the status bar left to right.
 
 ```bash
-# available plugins: battery, cpu-usage, git, gpu-usage, ram-usage, tmux-ram-usage, network, network-bandwidth, network-ping, attached-clients, network-vpn, weather, time, spotify-tui, kubernetes-context, synchronize-panes
-
+# available plugins: battery, cpu-usage, git, gpu-usage, ram-usage, tmux-ram-usage, network, network-bandwidth, network-ping, ssh-session, attached-clients, network-vpn, weather, time, mpc, spotify-tui, playerctl, kubernetes-context, synchronize-panes
 set -g @dracula-plugins "cpu-usage gpu-usage ram-usage"
 ```
 
@@ -75,7 +74,7 @@ Switch powerline symbols
 # for left
 set -g @dracula-show-left-sep 
 
-# for right symbol (can set any symbol you like as seperator)
+# for right symbol (can set any symbol you like as separator)
 set -g @dracula-show-right-sep 
 ```
 
@@ -95,7 +94,7 @@ set -g @dracula-refresh-rate 5
 Switch the left smiley icon
 
 ```bash
-# it can accept `session`, `smiley`, `window`, or any character.
+# it can accept `hostname` (full hostname), `session`, `shortname` (short name), `smiley`, `window`, or any character.
 set -g @dracula-show-left-icon session
 ```
 
@@ -189,6 +188,13 @@ You can configure which server (hostname, IP) you want to ping and at which rate
 set -g @dracula-ping-server "google.com"
 set -g @dracula-ping-rate 5
 ```
+### ssh-session options
+
+Show SSH session port
+
+```bash
+set -g @dracula-show-ssh-session-port true
+```
 
 #### time options
 
@@ -209,6 +215,12 @@ Enable military time
 ```bash
 set -g @dracula-military-time true
 ```
+
+Set custom time format e.g (2023-01-01 14:00)
+```bash
+set -g @dracula-time-format "%F %R"
+```
+See [[this page]](https://man7.org/linux/man-pages/man1/date.1.html) for other format symbols.
 
 #### git options
 
@@ -320,6 +332,31 @@ set -g @dracula-clients-singular client
 set -g @dracula-clients-plural clients
 ```
 
+#### Kubernetes options
+
+Add prefix label before the context
+
+```bash
+set -g @dracula-kubernetes-context-label "Some Label"
+```
+
+Hide user from the context string
+
+```
+set -g @dracula-kubernetes-hide-user true
+```
+
+Hide ARN (show only cluster name) - Available for EKS only (only available for cluster names that are ARNs)
+
+```
+set -g @dracula-kubernetes-eks-hide-arn true
+```
+
+Extract the account as a prefix to the cluster name - Available for EKS only (only available for cluster names that are ARNs)
+
+```
+set -g @dracula-kubernetes-eks-extract-account true
+
 #### continuum options
 
 Set the output mode. Options are:
@@ -336,4 +373,12 @@ Show if the last save was performed less than 60 seconds ago (default threshold 
 
 ```bash
 set -g @dracula-continuum-time-threshold 60
+```
+
+#### Playerctl format
+
+Set the playerctl metadata format
+
+```
+set -g @dracula-playerctl-format "►  {{ artist }} - {{ title }}"
 ```
